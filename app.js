@@ -10,6 +10,7 @@ const server = http.createServer((req,res)=>{
 
 //listen server
 
+
 server.listeners(PORT, 'localhost', (error)=>{
     error ? console.log(error) : console.log(`listening port ${PORT}`);
 });
