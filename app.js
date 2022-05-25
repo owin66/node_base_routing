@@ -4,15 +4,27 @@ const path = require("path");
 
 const PORT = 3000;
 
-const server = http.createServer((req,res)=>{
+const server = http.createServer((req, res) => {
     console.log('Server request');
 
-    res.setHeader('Context-Type','text/html')
+    res.setHeader('Content-Type', 'text/html')
+
+    if (req.url = '/') {
+        fs.readFile('./views/index.html', (err, data) => {
+            if (err) {
+                console.log(err);
+                res.end();
+            } else {
+                res.write(data);
+                res.end();
+            }
+        })
+    }
 });
 
 //listen server
 
 
-server.listeners(PORT, 'localhost', (error)=>{
+server.listeners(PORT, 'localhost', (error) => {
     error ? console.log(error) : console.log(`listening port ${PORT}`);
 });
