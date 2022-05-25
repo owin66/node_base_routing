@@ -9,17 +9,33 @@ const server = http.createServer((req, res) => {
 
     res.setHeader('Content-Type', 'text/html')
 
-    if (req.url = '/') {
-        fs.readFile('./views/index.html', (err, data) => {
-            if (err) {
-                console.log(err);
-                res.end();
-            } else {
-                res.write(data);
-                res.end();
-            }
-        })
+    const createPath = (page) => path.resolve(__dirname, 'views', `${page}.html`)
+
+    let basePath = '';
+
+    switch (req.url) {
+        case '/':
+            basePath = createPath('index');
+            break;
+        case '/constacts':
+            basePath = createPath('constacts');
+            break;
+        default:
+            basePath = createPath('error');
+            break;
     }
+
+    fs.readFile(basePath, (err, data) => {
+        if (err) {
+            console.log(err);
+            res.end();
+        } else {
+            res.write(data);
+            res.end();
+        }
+    })
+
+
 });
 
 //listen server
